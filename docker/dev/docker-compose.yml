@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  base-project:
+    build:
+      context: .
+      dockerfile: ./images/express/Dockerfile
+    restart: "no"
+    ports:
+    - ${NODE_PORT:-3000}:3000
+    networks:
+    - project-network
+    volumes:
+    - ../../project:/usr/src/project
+    - ./images/express/entrypoint.sh:/entrypoint.sh
+networks:
+  project-network:
+    external: false
