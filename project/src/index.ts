@@ -1,13 +1,42 @@
 require('dotenv').config();
 import express from "express";
-import {json } from "body-parser";
+import { json } from "body-parser";
 import { baseRouter } from "./routes/base.routes";
 import mongoose from "mongoose";
+const swaggerUi = require('swagger-ui-express');
+const basicAuth = require('express-basic-auth');
 
 const port = process.env.PORT || 3000;
 
 const app = express();
 app.use(json());
+
+
+const swaggerJsdoc = require('swagger-jsdoc');
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Base Project',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./src/routes/**.routes.ts'], // files containing annotations as above
+};
+
+const swaggerUser = process.env.SWG_USER;
+const swaggerPassword = process.env.SWG_PASSWORD;
+
+const swaggerSpec = swaggerJsdoc(options);
+app.use('/api-docs', 
+basicAuth({
+    users: { "users" : swaggerPassword, },
+    challenge: true,
+}),
+swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 app.use(baseRouter);
 
 
