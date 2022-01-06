@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 
 interface IBase {
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     minCount: number;
     maxCount: number;
 }
 
 const baseSchema = new mongoose.Schema({
     startDate: {
-        type: Date,
+        type: String,
         required: true
     },
     endDate: {
-        type: Date,
+        type: String,
         required: true
     },
     minCount: {
@@ -26,5 +26,6 @@ const baseSchema = new mongoose.Schema({
     },
 });
 
-const Base = mongoose.model("Base", baseSchema);
-export { Base};
+const Base = mongoose.model<IBase>("Base", baseSchema);
+
+export { Base, IBase };
