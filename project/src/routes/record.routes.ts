@@ -28,16 +28,7 @@ const router = express.Router();
  *                type: integer
  *     responses:
  *       200:
- *         description: returns string.
- *         content:
- *         application/json:
- *          schema:
- *            type: object
- *            properties:
- *              startDate:
- *                type: string
- *                example: 2012-02-23
- *
+ *         description: Returns the Records.
  */
 router.get('/api/base', validateRecordRequest, findRecords);
 
