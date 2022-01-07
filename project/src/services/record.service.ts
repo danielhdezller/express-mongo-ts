@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
+import {IRequestRecords} from '../interfaces/IRequests';
 import {IRecord, IResponseDto} from '../interfaces/IResponse';
-import {IRequestRecords} from '../models/base.model';
 import {Records} from '../models/records.model';
 import {toOkResponse} from '../responses/record.response';
 import {toRecord} from '../utils/mappers/records.mapper';

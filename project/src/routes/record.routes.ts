@@ -1,8 +1,6 @@
-import express, {Request, Response} from 'express';
-import {Base, IRequestRecords} from '../models/base.model';
+import express from 'express';
 import {validateRecordRequest} from '../requests/record.requests';
 import {findRecords} from '../services/record.service';
-import {isValidDate} from '../utils/validate-dates.util';
 const router = express.Router();
 
 /**
@@ -42,44 +40,5 @@ const router = express.Router();
  *
  */
 router.get('/api/base', validateRecordRequest, findRecords);
-
-/**
- * @openapi
- * /api/base:
- *   post:
- *     description: Create a register.
- *     responses:
- *       201:
- *         description: Returns the registry.
- */
-router.post(
-  '/api/base',
-  (req, res, next) => {
-    const data = req.body;
-    if (!isValidDate(data.startDate) || !isValidDate(data.endDate)) {
-      return res
-        .status(400)
-        .send('Bad Request, date format must be YYYY-MM-DD');
-    }
-    return next();
-  },
-
-  async (req: Request, res: Response): Promise<Response> => {
-    const baseDto: IRequestRecords = req.body;
-    const base = new Base({
-      startDate: baseDto.startDate,
-      endDate: baseDto.endDate,
-      minCount: baseDto.minCount,
-      maxCount: baseDto.maxCount,
-    });
-    try {
-      await base.save();
-    } catch (err) {
-      console.error(err);
-    }
-
-    return res.status(201).send(base);
-  }
-);
 
 export {router as baseRouter};

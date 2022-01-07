@@ -1,7 +1,7 @@
 require('dotenv').config();
 import express from 'express';
 import {json} from 'body-parser';
-import {baseRouter} from './routes/base.routes';
+import {baseRouter} from './routes/record.routes';
 import mongoose from 'mongoose';
 const swaggerUi = require('swagger-ui-express');
 const basicAuth = require('express-basic-auth');
