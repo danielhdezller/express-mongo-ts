@@ -4,4 +4,4 @@ set -e
 yarn install
 yarn build
 
-yarn start
+yarn start:dev

@@ -1,11 +1,5 @@
 import mongoose from 'mongoose';
-
-interface IBase {
-  startDate: string;
-  endDate: string;
-  minCount: number;
-  maxCount: number;
-}
+import {IRequestRecords} from '../interfaces/IRequests';
 
 const baseSchema = new mongoose.Schema({
   startDate: {
@@ -26,6 +20,6 @@ const baseSchema = new mongoose.Schema({
   },
 });
 
-const Base = mongoose.model<IBase>('Base', baseSchema);
+const Base = mongoose.model<IRequestRecords>('Base', baseSchema);
 
-export {Base, IBase};
+export {Base, IRequestRecords};
